@@ -1,34 +1,34 @@
 #pragma once
-
-#include "lcs.h"
+#include "lcs.hpp"
 #include <random>
 #include <algorithm>
 
 default_random_engine generator;
-
-int generateRandom(int minX, int maxX)
-{
-	std::uniform_int_distribution<int> distribution(minX, maxX);
-	return distribution(generator);
+std::uniform_int_distribution<char> distribution('a', 'z');
+string generate_string(size_t size) {
+  
+    string result = "";
+    
+    for (size_t i = 0; i < size; ++i) {
+	result += distribution(generator);
+    }
+    return result;
 }
 
-string generateString(size_t size) {
-	string result = "";
-	for (size_t i = 0; i < size; ++i) {
-		result += char(generateRandom(0, 25) + 'a');
-	}
-	return result;
-}
-
-bool proceedTest(size_t sizeMain, size_t sizeSubseq, size_t testSize) {
-	string mainString = generateString(sizeMain);
-	string subseqString = generateString(sizeSubseq);
-	int i = 0;
-	bool flag = true;
-	do {
-		flag &= getFastMatrixLCS(mainString, subseqString) == getSlowMatrixLCS(mainString, subseqString);
-		i++;
-	} while (i < testSize && next_permutation(subseqString.begin(), subseqString.end()));
-	return flag;
+bool LCS_test(size_t main_string_size, size_t sub_string_size, size_t testSize) {
+  
+    string main_string = generate_string(main_string_size);
+    string sub_string = generate_string(sub_string_size);
+    int i = 0;
+    sort(sub_string.begin(), sub_string.end());
+    bool flag = true;
+    
+    do {
+      
+      flag &= get_lcs_square(main_string, sub_string) == get_lcs_cube(main_string, sub_string);
+      i++;
+    } while (i < testSize && next_permutation(sub_string.begin(), sub_string.end()));
+    
+    return flag;
 }
 
