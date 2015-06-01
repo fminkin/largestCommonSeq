@@ -1,11 +1,10 @@
 #include <iostream>
-#include "tests.h"
+#include "tests.hpp"
 
 
 int main() {
-	int mainStringSize, subseqStringSize, testSize;
-	cin >> mainStringSize >> subseqStringSize >> testSize;
-	cout << (proceedTest(mainStringSize, subseqStringSize, testSize) ? "OK\n" : "WRONG\n");
-	system("pause");
+	int main_string_size, sub_string_size, test_size;
+	cin >> main_string_size >> sub_string_size >> test_size;
+	cout << (LCS_test(main_string_size, sub_string_size, test_size) ? "OK\n" : "WRONG\n");
 	return 0;
 }
